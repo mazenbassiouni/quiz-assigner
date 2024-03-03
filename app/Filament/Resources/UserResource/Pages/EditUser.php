@@ -69,7 +69,14 @@ class EditUser extends EditRecord
                     ->native(false)
                     ->placeholder('no role')
                     ->label('Role')
-                    ->hidden(!auth()->user()->hasRole('Admin'))
+                    ->hidden(!auth()->user()->hasRole('Admin')),
+                    // Forms\Components\Fieldset::make('generalNotes')
+                    // ->relationship('generalNotes')
+                    // ->schema([
+                    //     Forms\Components\TextInput::make('title'),
+                    //     Forms\Components\Textarea::make('description'),
+                    //     Forms\Components\FileUpload::make('image'),
+                    // ])
                 ]);
             
     }

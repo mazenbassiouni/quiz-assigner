@@ -150,4 +150,12 @@ class UserResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\GeneralNotesRelationManager::class,
+            RelationManagers\BehaviorNotesRelationManager::class,
+        ];
+    }
 }

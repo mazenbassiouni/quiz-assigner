@@ -21,33 +21,34 @@ class ViewUser extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('addBehavior')
-            ->form([
-                Forms\Components\TextInput::make('description')->required(),
-                Forms\Components\Radio::make('is_positive')->label('Type')
-                    ->options([
-                        '1' => 'Positive',
-                        '0' => 'Negative',
-                    ])->required(),
-            ])->action(function (array $data, User $record): void {
-                $record->behaviorNotes()->create($data);
-
-                Notification::make()
-                    ->title('Behavior note added successfully')
-                    ->success()
-                    ->send();
-            }),
             Actions\Action::make('add Note')
-            ->form([
-                Forms\Components\TextInput::make('description')->required(),
-            ])->action(function (array $data, User $record): void {
-                $record->generalNotes()->create($data);
+                ->form([
+                    Forms\Components\Textarea::make('description')->required(),
+                ])->action(function (array $data, User $record): void {
+                    $record->generalNotes()->create($data);
 
-                Notification::make()
-                    ->title('Note added successfully')
-                    ->success()
-                    ->send();
-            }),
+                    Notification::make()
+                        ->title('Note added successfully')
+                        ->success()
+                        ->send();
+                }),
+            Actions\Action::make('addBehavior')
+                ->form([
+                    Forms\Components\Textarea::make('description')->required(),
+                    Forms\Components\Radio::make('is_positive')->label('Type')
+                        ->options([
+                            '1' => 'Positive',
+                            '0' => 'Negative',
+                        ])->required(),
+                ])->action(function (array $data, User $record): void {
+                    $record->behaviorNotes()->create($data);
+
+                    Notification::make()
+                        ->title('Behavior note added successfully')
+                        ->success()
+                        ->send();
+                }),
+            Actions\EditAction::make(),
         ];
     }
 
@@ -66,6 +67,15 @@ class ViewUser extends ViewRecord
                         ->hidden(!auth()->user()->hasRole('Admin')),
                 ])->columns(3),
                 Tabs::make()->schema([
+                    Tabs\Tab::make('generalNotes')->schema([
+                        TextEntry::make('generalNotes.description')
+                            ->listWithLineBreaks()
+                            ->bulleted()
+                            ->label(false)
+                    ])->label('General notes')
+                    ->icon('heroicon-o-document')
+                    ->iconPosition(IconPosition::Before),
+
                     Tabs\Tab::make('positiveBehavior')->schema([
                         TextEntry::make('positiveBehavior.description')
                             ->listWithLineBreaks()
@@ -84,15 +94,13 @@ class ViewUser extends ViewRecord
                     ->icon('heroicon-o-document-minus')
                     ->iconPosition(IconPosition::Before),
 
-                    Tabs\Tab::make('generalNotes')->schema([
-                        TextEntry::make('generalNotes.description')
-                            ->listWithLineBreaks()
-                            ->bulleted()
-                            ->label(false)
-                    ])->label('General notes')
-                    ->icon('heroicon-o-document')
-                    ->iconPosition(IconPosition::Before),
                 ])
             ])->columns(1);
     }
+
+    public function getRelationManagers(): array
+    {
+        return [];
+    }
+
 }
