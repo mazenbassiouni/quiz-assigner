@@ -66,4 +66,24 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Rank::class);
     }
 
+    public function behaviorNotes()
+    {
+        return $this->hasMany(BehaviorNote::class);
+    }
+
+    public function positiveBehavior()
+    {
+        return $this->hasMany(BehaviorNote::class)->where('is_positive', true);
+    }
+
+    public function negativeBehavior()
+    {
+        return $this->hasMany(BehaviorNote::class)->where('is_positive', false);
+    }
+
+    public function generalNotes()
+    {
+        return $this->hasMany(GeneralNote::class);
+    }
+
 }
