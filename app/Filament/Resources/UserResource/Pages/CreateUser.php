@@ -22,7 +22,7 @@ class CreateUser extends CreateRecord
         $record->fill($data);
 
         if(auth()->user()->hasRole('Department Head')){
-            $record->department_id =auth()->user()->department_id;
+            $record->department_id = auth()->user()->department_id;
         }
 
         if($data['password']){

@@ -61,7 +61,7 @@ class UserResource extends Resource
                     )
                     ->preload()
                     ->native(false)
-                    ->hidden(auth()->user()->id != 1),
+                    ->hidden(!auth()->user()->hasRole('Admin')),
                 Forms\Components\Select::make('roles')
                     ->relationship(
                         name: 'roles',
@@ -72,7 +72,7 @@ class UserResource extends Resource
                     ->native(false)
                     ->placeholder('no role')
                     ->label('Role')
-                    ->hidden(auth()->user()->id != 1),
+                    ->hidden(!auth()->user()->hasRole('Admin')),
             ]);
     }
 

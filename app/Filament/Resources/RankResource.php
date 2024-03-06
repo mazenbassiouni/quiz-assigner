@@ -19,7 +19,7 @@ class RankResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chevron-double-up';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -61,8 +61,8 @@ class RankResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->iconButton(),
+                Tables\Actions\DeleteAction::make()->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
