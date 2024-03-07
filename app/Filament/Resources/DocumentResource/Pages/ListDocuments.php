@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Table;
 use App\Models\Document;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Model;
 
 class ListDocuments extends ListRecords
 {
@@ -79,6 +81,12 @@ class ListDocuments extends ListRecords
                 ...$custom_filters
             ])
             ->actions([
+                Tables\Actions\Action::make('sendEmail')
+                    ->icon('heroicon-s-folder-arrow-down')
+                    ->iconButton()
+                    ->action(function (Model $record) {
+                        return Storage::download('public/'.$record->path, $record->name);
+                    }),
                 Tables\Actions\EditAction::make()->iconButton(),
                 Tables\Actions\DeleteAction::make()->iconButton(),
             ])

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RankResource\Pages;
-use App\Filament\Resources\RankResource\RelationManagers;
-use App\Models\Rank;
+use App\Filament\Resources\DepartmentResource\Pages;
+use App\Filament\Resources\DepartmentResource\RelationManagers;
+use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class RankResource extends Resource
+class DepartmentResource extends Resource
 {
-    protected static ?string $model = Rank::class;
+    protected static ?string $model = Department::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chevron-double-up';
+    protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -27,16 +27,8 @@ class RankResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('category_id')
-                    ->relationship(
-                        name: 'category',
-                        titleAttribute: 'rank_categories.name',
-                    )
-                    ->label('Rank category')
-                    ->preload()
-                    ->native(false)
-                    ->required()
+                    ->maxLength(255)
+                    ->columnspan(2),
             ]);
     }
 
@@ -46,8 +38,6 @@ class RankResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -62,7 +52,6 @@ class RankResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->iconButton(),
-                Tables\Actions\DeleteAction::make()->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -81,9 +70,9 @@ class RankResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRanks::route('/'),
-            'create' => Pages\CreateRank::route('/create'),
-            'edit' => Pages\EditRank::route('/{record}/edit'),
+            'index' => Pages\ListDepartments::route('/'),
+            'create' => Pages\CreateDepartment::route('/create'),
+            'edit' => Pages\EditDepartment::route('/{record}/edit'),
         ];
     }
 }

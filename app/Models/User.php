@@ -13,8 +13,9 @@ use Filament\Panel;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Scopes\DepartmentHeadScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Filament\Models\Contracts\HasAvatar;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
@@ -84,6 +85,15 @@ class User extends Authenticatable implements FilamentUser
     public function generalNotes()
     {
         return $this->hasMany(GeneralNote::class);
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        if ( auth()->user()->id == 1){
+            return '/avatar/C.svg';
+        }
+
+        return '/avatar/black.svg';
     }
 
 }

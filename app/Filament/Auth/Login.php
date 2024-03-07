@@ -7,6 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Component;
 use Filament\Pages\Auth\Login as BaseAuth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Support\Htmlable;
  
 class Login extends BaseAuth
 {
@@ -45,5 +46,10 @@ class Login extends BaseAuth
         throw ValidationException::withMessages([
             'data.login' => __('filament-panels::pages/auth/login.messages.failed'),
         ]);
+    }
+
+    public function getHeading(): string | Htmlable
+    {
+        return __('AL-AZIZ');
     }
 }
