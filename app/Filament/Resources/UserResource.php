@@ -107,10 +107,11 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\TrashedFilter::make()->native(false),
                 Tables\Filters\SelectFilter::make('department_id')
                     ->relationship('department', 'name')
                     ->label('Department')
+                    ->native(false),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()->iconButton(),

@@ -27,9 +27,8 @@ class ListQuestions extends ListRecords
         if( request()->path() == 'livewire/update' 
             && array_key_exists('activeTab', request()->request->all()['components'][0]['updates'])
             && request()->request->all()['components'][0]['updates']['activeTab'] == 'true/false'
-            || request()->activeTab == 'true/false'
+            || request()->activeTab == 'true/false' || str_contains(request()->headers->get('referer'), 'activeTab=true%2Ffalse')
         ){
-            // dd('hi');
             $answer_column = Tables\Columns\IconColumn::make('answer')
                 ->boolean()
                 ->trueIcon('heroicon-o-check')
@@ -41,9 +40,11 @@ class ListQuestions extends ListRecords
         if(auth()->user()->hasRole('Admin')){
             $filters = [
                 Tables\Filters\SelectFilter::make('department_id')
+                    ->native(false)
                     ->relationship('department', 'name')
                     ->label('Department'),
                 Tables\Filters\SelectFilter::make('level')
+                    ->native(false)
                     ->options(fn (): array => Question::query()->groupBy('level')->pluck('level','level')->all()),
             ];
         }else{
