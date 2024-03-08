@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Library\LibraryList;
+use App\Livewire\Assignments\AssignmentsIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('library', LibraryList::class)
+    ->middleware(['auth'])
+    ->name('library');
+
+Route::get('assignments', AssignmentsIndex::class)
+    ->middleware(['auth'])
+    ->name('assignments');
+
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+require __DIR__.'/auth.php';

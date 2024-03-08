@@ -52,7 +52,7 @@ class DocumentResource extends Resource
                 Forms\Components\Select::make('branch')
                     ->options([
                         'General' => 'General',
-                        'Tech Doc' => 'Tech Doc',
+                        'Tech Docs' => 'Tech Docs',
                         'Maintenance' => 'Maintenance',
                         'OEM Courses' => 'OEM Courses'
                     ])
