@@ -18,7 +18,7 @@ class Question extends Model
     ];
 
     protected $casts = [
-        // 'is_right' => 'boolean',
+        'is_right' => 'boolean',
     ];
 
     public function department()
@@ -36,7 +36,7 @@ class Question extends Model
         return $this->hasOne(CorrectAnswer::class);
     }
 
-    public function getAnswerAttribute()
+    public function getAnswerTitleAttribute()
     {
         if($this->type == 'mcq'){
             $answer = $this->correctAnswer->answer->title;
@@ -46,4 +46,17 @@ class Question extends Model
 
         return $answer;
     }
+
+    public function getAnswerAttribute()
+    {
+        if($this->type == 'mcq'){
+            $answer = $this->correctAnswer->answer->id;
+        }else{
+            $answer = $this->is_right;
+        }
+
+        return $answer;
+    }
+
+    
 }

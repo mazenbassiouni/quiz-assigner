@@ -29,12 +29,12 @@ class ListQuestions extends ListRecords
             && request()->request->all()['components'][0]['updates']['activeTab'] == 'true/false'
             || request()->activeTab == 'true/false' || str_contains(request()->headers->get('referer'), 'activeTab=true%2Ffalse')
         ){
-            $answer_column = Tables\Columns\IconColumn::make('answer')
+            $answer_column = Tables\Columns\IconColumn::make('answer_title')->label('Answer')
                 ->boolean()
                 ->trueIcon('heroicon-o-check')
                 ->falseIcon('heroicon-o-x-mark');
         }else{
-            $answer_column = Tables\Columns\TextColumn::make('answer');
+            $answer_column = Tables\Columns\TextColumn::make('answer_title')->label('Answer');
         }
 
         if(auth()->user()->hasRole('Admin')){

@@ -132,17 +132,12 @@
                             <span>
                                 {{$doc->name}}
                             </span>
-                            <div class="relative" wire:loading.class="opacity-50">
-                                <div class="z-50 w-full h-full absolute" wire:loading>
-                        
-                                </div>
-                                <span class="cursor-pointer" wire:click="download('{{$doc->path}}','{{$doc->name}}')">
-                                    <x-filament::icon
-                                        icon="heroicon-s-folder-arrow-down"
-                                        class="h-5 w-5 text-gray-600"
-                                    />
-                                </span>
-                            </div>
+                            <span class="cursor-pointer" wire:click="download('{{$doc->path}}','{{$doc->name}}')">
+                                <x-filament::icon
+                                    icon="heroicon-s-folder-arrow-down"
+                                    class="h-5 w-5 text-gray-600"
+                                />
+                            </span>
                         </div>
                     @endforeach
                 @endif

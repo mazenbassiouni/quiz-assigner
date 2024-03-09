@@ -87,6 +87,16 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->hasMany(GeneralNote::class);
     }
 
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
+    public function assignedQuizzes()
+    {
+        return $this->hasMany(Quiz::class)->where('is_opened', false);
+    }
+
     public function getFilamentAvatarUrl(): ?string
     {
         if ( auth()->user()->id == 1){
@@ -94,6 +104,20 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         }
 
         return '/avatar/black.svg';
+    }
+
+    public function assginQuiz(int $lvl, int $count, int $duration){
+        
+        $questions = Question::where('level', $lvl)->where('department_id', $this->department_id)->get();
+        $questions = $questions->random(min($questions->count(), $count))->shuffle()->pluck('id')->toArray();
+
+        $this->quizzes()->save(
+            new Quiz([
+                'level' => $lvl,
+                'duration' => $duration,
+                'questions' => $questions,
+            ])
+        );
     }
 
 }

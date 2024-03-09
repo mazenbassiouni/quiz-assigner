@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class LibraryList extends Component
 {
-    public bool $first_filter = false;
+    public bool $first_filter = true;
 
     public ?string $type = null;
 

@@ -37,7 +37,7 @@ new class extends Component
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('assignments')" :active="request()->routeIs('assignments')" wire:navigate>
+                    <x-nav-link :href="route('assignments')" :active="request()->routeIs('assignments')" :notifications="auth()->user()->assignedQuizzes()->count()" wire:navigate>
                         Assignments
                     </x-nav-link>
                 </div>
@@ -59,6 +59,12 @@ new class extends Component
                     </x-slot>
 
                     <x-slot name="content">
+                        @if ( auth()->user()->hasRole(['Admin', 'Department Head']) )
+                            <x-dropdown-link href="/admin">
+                                Admin Panel
+                            </x-dropdown-link>
+                        @endif
+
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -101,6 +107,12 @@ new class extends Component
             </div>
 
             <div class="mt-3 space-y-1">
+                @if ( auth()->user()->hasRole(['Admin', 'Department Head']) )
+                    <x-responsive-nav-link href="admin">
+                        Admin Panel
+                    </x-responsive-nav-link>
+                @endif
+
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>

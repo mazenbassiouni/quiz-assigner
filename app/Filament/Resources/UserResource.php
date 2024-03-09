@@ -12,9 +12,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Notifications\Notification;
 use Filament\Resources\Components\Tab;
 use Illuminate\Support\Arr;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Model;
 
 class UserResource extends Resource
 {
@@ -114,6 +116,37 @@ class UserResource extends Resource
                     ->native(false),
             ])
             ->actions([
+                Tables\Actions\Action::make('assignQuiz')
+                    ->form([
+                        Forms\Components\TextInput::make('count')
+                            ->numeric()
+                            ->label('How many question?')
+                            ->required(),
+                        Forms\Components\Select::make('level')
+                            ->label('Select level')
+                            ->required()
+                            ->options([
+                                '1' => '1',
+                                '2' => '2',
+                                '3' => '3',
+                                '4' => '4', 
+                                '5' => '5',
+                            ])->native(false),
+                        Forms\Components\TextInput::make('duration')
+                            ->numeric()
+                            ->label('Quiz duration in minutes')
+                            ->required(),
+                    ])
+                    ->icon('heroicon-o-document-text')
+                    ->iconButton()
+                    ->action(function (array $data, User $record) {
+                        $record->assginQuiz($data['level'], $data['count'], $data['duration']);
+
+                        Notification::make()
+                            ->title('Quiz assigned successfully')
+                            ->success()
+                            ->send();
+                    }),
                 Tables\Actions\ViewAction::make()->iconButton(),
                 Tables\Actions\EditAction::make()->iconButton(),
                 Tables\Actions\DeleteAction::make()->iconButton(),

@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Auth\Login;
+use Filament\Navigation\MenuItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -57,6 +58,13 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->favicon(asset('logos/circle-logo.png'))
             ->brandLogo(asset('logos/main.png'))
-            ->brandLogoHeight('2.5rem');
+            ->brandLogoHeight('2.5rem')
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Exit Admin Panel')
+                    ->url(fn (): string => '/')
+                    ->icon('heroicon-o-arrow-uturn-left'),
+                // ...
+            ]);;
     }
 }

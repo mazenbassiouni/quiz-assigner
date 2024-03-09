@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Library\LibraryList;
 use App\Livewire\Assignments\AssignmentsIndex;
+use App\Livewire\Quiz\TakeQuiz;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::get('library', LibraryList::class)
 Route::get('assignments', AssignmentsIndex::class)
     ->middleware(['auth'])
     ->name('assignments');
+
+Route::get('quiz/{id}', TakeQuiz::class)
+    ->middleware(['auth'])
+    ->name('take.quiz');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
