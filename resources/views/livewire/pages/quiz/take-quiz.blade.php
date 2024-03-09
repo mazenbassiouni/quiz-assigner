@@ -15,29 +15,32 @@
                     @php
                         $qst = \App\Models\Question::find($qst);
                     @endphp
-                    <div class="my-3">
-                        <div>
-                            <b class="mr-4">{{$loop->iteration}})</b>{{$qst->title}}
-                        </div>
-                        @if ($qst->type == 'mcq')
-                            @foreach ($qst->answers as $asr)
+                    
+                    @if ($qst)
+                        <div class="my-3">
+                            <div>
+                                <b class="mr-4">{{$loop->iteration}})</b>{{$qst->title}}
+                            </div>
+                            @if ($qst->type == 'mcq')
+                                @foreach ($qst->answers as $asr)
+                                    <div class="flex items-center pl-10 my-1">
+                                        <input type="radio" id="{{$qst->id}}-{{$asr->id}}" class="mr-3" name="{{$qst->id}}" value="{{$asr->id}}">
+                                        <label for="{{$qst->id}}-{{$asr->id}}">{{$asr->title}}</label>
+                                    </div>
+                                @endforeach
+                            @else
                                 <div class="flex items-center pl-10 my-1">
-                                    <input type="radio" id="{{$qst->id}}-{{$asr->id}}" class="mr-3" name="{{$qst->id}}" value="{{$asr->id}}">
-                                    <label for="{{$qst->id}}-{{$asr->id}}">{{$asr->title}}</label>
+                                    <input type="radio" id="{{$qst->id}}-true" class="mr-3" name="{{$qst->id}}" value="1">
+                                    <label for="{{$qst->id}}-true">True</label>
                                 </div>
-                            @endforeach
-                        @else
-                            <div class="flex items-center pl-10 my-1">
-                                <input type="radio" id="{{$qst->id}}-true" class="mr-3" name="{{$qst->id}}" value="1">
-                                <label for="{{$qst->id}}-true">True</label>
-                            </div>
 
-                            <div class="flex items-center pl-10 my-1">
-                                <input type="radio" id="{{$qst->id}}-false" class="mr-3" name="{{$qst->id}}" value="0">
-                                <label for="{{$qst->id}}-false">False</label>
-                            </div>
-                        @endif
-                    </div>
+                                <div class="flex items-center pl-10 my-1">
+                                    <input type="radio" id="{{$qst->id}}-false" class="mr-3" name="{{$qst->id}}" value="0">
+                                    <label for="{{$qst->id}}-false">False</label>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 @endforeach
 
                 <div class="flex justify-end mt-5">

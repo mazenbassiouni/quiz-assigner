@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Quiz extends Model
 {
@@ -12,12 +13,13 @@ class Quiz extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'submited_at' => 'datetime',
         'questions' => 'json',
         'answers' => 'json',
         'is_opened' => 'boolean',
     ];
 
-    public function gradeQuiz(){
+    public function gradeQuiz(?Carbon $time = null){
         if($this->answers){
             $questions = 0;
             $correct = 0;
@@ -31,11 +33,15 @@ class Quiz extends Model
                 }
             }
             $this->grade = number_format( 100/$questions*$correct ,2);
-            $this->save();
         }else{
             $this->answers = [];
             $this->grade = 0;
-            $this->save();
         }
+        $this->submited_at = $time ?? $this->submited_at;
+        $this->save();
+    }
+
+    public function getQuestionsCountAttribute(){
+        return count($this->questions);
     }
 }

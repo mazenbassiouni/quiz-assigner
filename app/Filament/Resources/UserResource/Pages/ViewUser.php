@@ -13,6 +13,9 @@ use Filament\Forms;
 use App\Models\User;
 use Filament\Notifications\Notification;
 use Filament\Support\Enums\IconPosition;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Actions\Action;
 
 class ViewUser extends ViewRecord
 {
@@ -92,6 +95,43 @@ class ViewUser extends ViewRecord
                             ->label(false)
                     ])->label('Negative behavior')
                     ->icon('heroicon-o-document-minus')
+                    ->iconPosition(IconPosition::Before),
+
+                    Tabs\Tab::make('quizzesHistory')->schema([
+                        RepeatableEntry::make('quizzes')
+                            ->schema([
+                                TextEntry::make('grade')
+                                    ->badge()
+                                    ->formatStateUsing(fn ($state): string => $state.'%'),
+                                TextEntry::make('level'),
+                                    
+                                TextEntry::make('duration')
+                                    ->formatStateUsing(fn ($state): string => $state.'min'),
+                                TextEntry::make('questions_count')->label('Questions'),
+                                TextEntry::make('submited_at')
+                                    ->dateTime()
+                                    ->formatStateUsing(fn ($state): string => $state->format('d/m/Y'))
+                                    ->label('Submited at'),
+                                IconEntry::make('is_opened')
+                                    ->label('Seen')
+                                    ->icon(fn ($state): string => $state ? 'heroicon-o-eye' : 'heroicon-o-eye-slash'),
+                                // TextEntry::make('grade')
+                                //     ->label('View Quiz')
+                                //     ->formatStateUsing(fn ($state): string => '->')
+                                //     ->suffixAction(
+                                //         Action::make('viewQuiz')
+                                //             ->icon('heroicon-m-eye')
+                                //             ->action(function ($record) {
+                                //                 return Notification::make()
+                                //                     ->title('xxxx')
+                                //                     ->success()
+                                //                     ->send();
+                                //             })
+                                //     )
+                            ])
+                            ->columns(4)
+                    ])
+                    ->icon('heroicon-o-clipboard-document-list')
                     ->iconPosition(IconPosition::Before),
 
                 ])

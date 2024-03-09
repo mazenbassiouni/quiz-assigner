@@ -7,7 +7,7 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-800 select-none">
+            <div class="p-6 text-gray-800 select-none min-h-96">
 
                 @if (!$type && $first_filter)
                     <div class="flex justify-center">
@@ -127,19 +127,31 @@
                         </div>
                     </div>
                     <hr class="mt-6 mb-4">
-                    @foreach ($documents as $doc)
-                        <div class="flex justify-between px-6 py-3 my-3 last:mb-0 border-b rounded-xl border-gray-200 hover:bg-gray-50/75">
-                            <span>
-                                {{$doc->name}}
-                            </span>
-                            <span class="cursor-pointer" wire:click="download('{{$doc->path}}','{{$doc->name}}')">
+                    @if ($documents->count())
+                        @foreach ($documents as $doc)
+                            <div class="flex justify-between px-6 py-3 my-3 last:mb-0 border-b rounded-xl border-gray-200 hover:bg-gray-50/75">
+                                <span>
+                                    {{$doc->name}}
+                                </span>
+                                <span class="cursor-pointer" wire:click="download('{{$doc->path}}','{{$doc->name}}')">
+                                    <x-filament::icon
+                                        icon="heroicon-s-folder-arrow-down"
+                                        class="h-5 w-5 text-gray-600"
+                                    />
+                                </span>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="h-64 flex justify-center items-center text-gray-300">
+                            <div class="flex flex-col justify-center items-center">
                                 <x-filament::icon
-                                    icon="heroicon-s-folder-arrow-down"
-                                    class="h-5 w-5 text-gray-600"
+                                    icon="heroicon-o-clipboard-document-check"
+                                    class="h-20 w-20 dark:text-gray-400"
                                 />
-                            </span>
+                                <span class="text-center text-xl font-semibold">No Result! </span>
+                            </div>
                         </div>
-                    @endforeach
+                    @endif
                 @endif
 
             </div>

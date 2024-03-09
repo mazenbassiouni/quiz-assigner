@@ -32,7 +32,7 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="login">
         <!-- Email Address -->
         <div>
-            <x-input-label for="username" :value="__('Email')" />
+            <x-input-label for="username" value="Username" />
             <x-text-input wire:model="form.username" id="username" class="block mt-1 w-full" type="text" name="username" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('form.username')" class="mt-2" />
         </div>

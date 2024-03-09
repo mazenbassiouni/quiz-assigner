@@ -89,7 +89,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
     public function quizzes()
     {
-        return $this->hasMany(Quiz::class);
+        return $this->hasMany(Quiz::class)->latest();
     }
 
     public function assignedQuizzes()

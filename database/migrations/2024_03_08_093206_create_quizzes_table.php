@@ -21,6 +21,7 @@ return new class extends Migration
             $table->json('answers')->nullable();
             $table->decimal('grade', 8, 2)->nullable();
             $table->timestamps();
+            $table->timestamp('submited_at')->nullable()->default(null);
         });
     }
 

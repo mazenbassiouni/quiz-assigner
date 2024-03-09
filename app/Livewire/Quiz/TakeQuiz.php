@@ -4,6 +4,7 @@ namespace App\Livewire\Quiz;
 
 use Livewire\Component;
 use App\Models\Quiz;
+use Carbon\Carbon;
 
 class TakeQuiz extends Component
 {
@@ -19,7 +20,7 @@ class TakeQuiz extends Component
         $quiz = Quiz::findOrFail($this->id);
         if($quiz->grade === null){
             $quiz->answers = $form;
-            $quiz->gradeQuiz();
+            $quiz->gradeQuiz(Carbon::now());
         }
         return $this->redirect('/assignments', navigate: true);
     }

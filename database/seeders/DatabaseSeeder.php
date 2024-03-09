@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'name' => 'Commander',
             'username' => 'commander',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('commander123'),
             'military_number' => 0,
             'department_id' => 0,
             'rank_id' => 0
@@ -29,13 +29,13 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::create(['name' => 'Department Head']);
 
-        \App\Models\Department::create([
-            'name' => 'ملاحة'
-        ]);
+        // \App\Models\Department::create([
+        //     'name' => 'ملاحة'
+        // ]);
 
-        \App\Models\Department::create([
-            'name' => 'إشارة'
-        ]);
+        // \App\Models\Department::create([
+        //     'name' => 'إشارة'
+        // ]);
 
         $rank_categories = \App\Models\RankCategory::create([
             'name' => 'officer'
