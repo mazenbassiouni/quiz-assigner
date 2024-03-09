@@ -64,7 +64,6 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Exit Admin Panel')
                     ->url(fn (): string => '/')
                     ->icon('heroicon-o-arrow-uturn-left'),
-                // ...
-            ]);;
+            ]);
     }
 }

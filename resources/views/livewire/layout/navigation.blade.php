@@ -65,9 +65,9 @@ new class extends Component
                             </x-dropdown-link>
                         @endif
 
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
+                        {{-- <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
 
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
@@ -113,9 +113,9 @@ new class extends Component
                     </x-responsive-nav-link>
                 @endif
 
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
+                {{-- <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link> --}}
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">

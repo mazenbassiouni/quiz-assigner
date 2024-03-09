@@ -131,6 +131,7 @@ class ViewUser extends ViewRecord
                             ])
                             ->columns(4)
                     ])
+                    ->label('Quizzes History')
                     ->icon('heroicon-o-clipboard-document-list')
                     ->iconPosition(IconPosition::Before),
 

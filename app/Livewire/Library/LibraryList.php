@@ -54,8 +54,7 @@ class LibraryList extends Component
     }
 
     public function download(string $path, string $name){
-        sleep(10);
-        // return Storage::download('public/'.$path, $name);
+        return Storage::download('public/'.$path, $name);
     }
 
     public function render()
